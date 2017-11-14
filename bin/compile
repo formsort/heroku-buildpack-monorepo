@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 indent() {
-    sed -u 's/^/      /'
+    sed -u 's/^/       /'
+}
+arrow_indent() {
+    sed -u 's/^/-----> /'
 }
 
 BUILD_DIR="$1"
@@ -14,6 +17,17 @@ if [ ! -f "${ENV_DIR}/APP_BASE" ]; then
 fi
 
 APP_BASE="$(cat "${ENV_DIR}/APP_BASE")"
+
+PREP_SCRIPT_FILE="${BUILD_DIR}/bin/heroku-monorepo-prepare"
+if [ -f "${PREP_SCRIPT_FILE}" ]; then
+    echo "Running monorepo preparation script: " \
+        "bin/heroku-monorepo-prepare ${APP_BASE}" | arrow_indent
+
+    if ! "${PREP_SCRIPT_FILE}" "${APP_BASE}" | indent; then
+        echo "Monorepo preparation script failed, aborting!" | indent
+        exit 1
+    fi
+fi
 
 (
     mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}" &&
