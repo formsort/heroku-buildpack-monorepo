@@ -28,13 +28,16 @@ if [ -f "${PREP_SCRIPT_FILE}" ]; then
         exit 1
     fi
 fi
-
-GLOBIGNORE=".:.."
+echo "$BUILD_DIR"
+echo "$APP_BASE"
+echo "$STAGE"
+# GLOBIGNORE=".:.."
 (
     mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}" &&
-    (rm -rf "${BUILD_DIR}"/.* || true) &&
-    ls -alh &&
-    (mv "${STAGE}/$(basename "$APP_BASE")"/.* "${BUILD_DIR}" || true)
+    (rm -rf "${BUILD_DIR}" || true) &&
+    ls -alh "${BUILD_DIR}" &&
+    (cp -rf "${STAGE}/$(basename "$APP_BASE")"/.* "${BUILD_DIR}" || true) &&
+    ls -alh "${BUILD_DIR}"
 )
 
 if [ $? -ne 0 ]; then
