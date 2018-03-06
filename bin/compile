@@ -31,7 +31,7 @@ fi
 
 (
     mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}" &&
-    rm -rf "${BUILD_DIR}/*" &&
+    (rm -rf "${BUILD_DIR}" || true) &&
     mv "${STAGE}/$(basename "$APP_BASE")/*" "${BUILD_DIR}"
 )
 
