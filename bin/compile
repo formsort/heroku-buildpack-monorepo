@@ -29,9 +29,11 @@ if [ -f "${PREP_SCRIPT_FILE}" ]; then
     fi
 fi
 
+GLOBIGNORE=".:.."
 (
     mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}" &&
-    (rm -rf "${BUILD_DIR}" || true) &&
+    (rm -rf "${BUILD_DIR}"/.* || true) &&
+    ls -alh &&
     (mv "${STAGE}/$(basename "$APP_BASE")"/.* "${BUILD_DIR}" || true)
 )
 
