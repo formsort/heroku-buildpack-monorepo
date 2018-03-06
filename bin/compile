@@ -31,10 +31,12 @@ fi
 echo "$BUILD_DIR"
 echo "$APP_BASE"
 echo "$STAGE"
-# GLOBIGNORE=".:.."
+shopt -s extglob
+FILES_TO_KEEP='..|.|.sprettur'
+ls "$BUILD_DIR"
 (
     mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}" &&
-    (rm -rf "${BUILD_DIR}" || true) &&
+    (rm -rf !($FILES_TO_KEEP) || true) &&
     ls -alh "${BUILD_DIR}" &&
     (cp -rf "${STAGE}/$(basename "$APP_BASE")"/.* "${BUILD_DIR}" || true) &&
     ls -alh "${BUILD_DIR}"
