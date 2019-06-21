@@ -30,9 +30,9 @@ if [ -f "${PREP_SCRIPT_FILE}" ]; then
 fi
 
 (
-    mv "${BUILD_DIR}/${APP_BASE}" "${STAGE}" &&
-    rm -rf "${BUILD_DIR}" &&
-    mv "${STAGE}/$(basename "$APP_BASE")" "${BUILD_DIR}"
+    mv "${BUILD_DIR}" "${STAGE}" &&
+    mkdir -p "${BUILD_DIR}" &&
+    cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/" "${BUILD_DIR}/"
 )
 
 if [ $? -ne 0 ]; then
@@ -41,4 +41,3 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Copied ${APP_BASE} to root of app successfully" | indent
-
