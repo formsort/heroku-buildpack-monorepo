@@ -36,9 +36,10 @@ set -x
     echo "STAGE ${STAGE} contents:" | arrow_indent &&
     ls -la "${STAGE}" | indent &&
     mkdir -p "${BUILD_DIR}" &&
-    echo "cp -RL ${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/ ${BUILD_DIR}/" | arrow_indent &&
-    cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/" "${BUILD_DIR}/"
+    cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/" "${BUILD_DIR}"
 )
+
+unset -x
 
 if [ $? -ne 0 ]; then
     echo "FAILED to copy directory into place" | indent
