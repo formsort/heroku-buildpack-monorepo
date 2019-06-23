@@ -41,3 +41,6 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Copied ${APP_BASE} to root of app successfully" | indent
+
+echo "Directory contents:" | arrow_indent
+ls -la "${BUILD_DIR}" | indent
