@@ -35,8 +35,7 @@ set -x
     mv "${BUILD_DIR}" "${STAGE}" &&
     echo "STAGE ${STAGE} contents:" | arrow_indent &&
     ls -la "${STAGE}" | indent &&
-    mkdir -p "${BUILD_DIR}" &&
-    cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/" "${BUILD_DIR}"
+    cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}" "${BUILD_DIR}"
 )
 
 set +x
