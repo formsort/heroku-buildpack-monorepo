@@ -39,7 +39,7 @@ set -x
     cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/" "${BUILD_DIR}"
 )
 
-unset -x
+set +x
 
 if [ $? -ne 0 ]; then
     echo "FAILED to copy directory into place" | indent
