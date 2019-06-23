@@ -29,11 +29,14 @@ if [ -f "${PREP_SCRIPT_FILE}" ]; then
     fi
 fi
 
+set -x
+
 (
     mv "${BUILD_DIR}" "${STAGE}" &&
     echo "STAGE ${STAGE} contents:" | arrow_indent &&
     ls -la "${STAGE}" | indent &&
     mkdir -p "${BUILD_DIR}" &&
+    echo "cp -RL ${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/ ${BUILD_DIR}/" | arrow_indent &&
     cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/" "${BUILD_DIR}/"
 )
 
