@@ -31,6 +31,8 @@ fi
 
 (
     mv "${BUILD_DIR}" "${STAGE}" &&
+    echo "STAGE ${STAGE} contents:" | arrow_indent &&
+    ls -la "${STAGE}" | indent &&
     mkdir -p "${BUILD_DIR}" &&
     cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}/" "${BUILD_DIR}/"
 )
@@ -42,5 +44,5 @@ fi
 
 echo "Copied ${APP_BASE} to root of app successfully" | indent
 
-echo "Directory contents:" | arrow_indent
+echo "BUILD_DIR ${BUILD_DIR} contents:" | arrow_indent
 ls -la "${BUILD_DIR}" | indent
