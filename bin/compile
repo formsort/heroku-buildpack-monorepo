@@ -29,16 +29,10 @@ if [ -f "${PREP_SCRIPT_FILE}" ]; then
     fi
 fi
 
-set -x
-
 (
     mv "${BUILD_DIR}" "${STAGE}" &&
-    echo "STAGE ${STAGE} contents:" | arrow_indent &&
-    ls -la "${STAGE}" | indent &&
     cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}" "${BUILD_DIR}"
 )
-
-set +x
 
 if [ $? -ne 0 ]; then
     echo "FAILED to copy directory into place" | indent
@@ -46,6 +40,3 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Copied ${APP_BASE} to root of app successfully" | indent
-
-echo "BUILD_DIR ${BUILD_DIR} contents:" | arrow_indent
-ls -la "${BUILD_DIR}" | indent
