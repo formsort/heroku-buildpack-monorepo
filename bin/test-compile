@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+indent() {
+    sed -u 's/^/       /'
+}
+arrow_indent() {
+    sed -u 's/^/-----> /'
+}
+
+BUILD_DIR="$1"
+# CACHE_DIR="$2"
+ENV_DIR="$3"
+
+if [ ! -f "${ENV_DIR}/APP_BASE" ]; then
+    echo "APP_BASE was not set. Aborting" | indent
+    exit 1
+fi
+
+APP_BASE="$(cat "${ENV_DIR}/APP_BASE")"
+
+TEST_PREP_SCRIPT_FILE="${BUILD_DIR}/bin/heroku-monorepo-test-prepare"
+PREP_SCRIPT_FILE="${BUILD_DIR}/bin/heroku-monorepo-prepare"
+if [ -f "${TEST_PREP_SCRIPT_FILE}" ]; then
+    echo "Running test monorepo preparation script: " \
+        "${PREP_SCRIPT_FILE}" "$1" "$2" "$3" "${APP_BASE}" | arrow_indent
+
+    if ! "${PREP_SCRIPT_FILE}" "$1" "$2" "$3" "${APP_BASE}" | indent; then
+        echo "Monorepo test preparation script failed, aborting!" | indent
+        exit 1
+    fi
+elif [ -f "${PREP_SCRIPT_FILE}" ]; then
+    echo "Running monorepo preparation script: " \
+        "bin/heroku-monorepo-prepare ${APP_BASE}" | arrow_indent
+
+    if ! "${PREP_SCRIPT_FILE}" "$1" "$2" "$3" "${APP_BASE}" | indent; then
+        echo "Monorepo preparation script failed, aborting!" | indent
+        exit 1
+    fi
+fi
+
+echo "Successfully completed test-compile" | indent

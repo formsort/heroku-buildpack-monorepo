@@ -11,11 +11,11 @@ Enter the Monorepo buildpack, which is a copy of [heroku-buildpack-multi-procfil
 1. Write a bunch of apps and scatter them through out your code base.
 2. Create a bunch of Heroku apps.
 3. For each app, set `APP_BASE=relative/path/to/app/root`, and of course:
-   `heroku buildpacks:add -a <app> https://github.com/lstoll/heroku-buildpack-monorepo`
+   `heroku buildpacks:add -a <app> https://github.com/formsort/heroku-buildpack-monorepo`
 5. _(Optional)_ add a `bin/heroku-monorepo-prepare` script to make any changes
 prior to the structure being changed.
 4. For each app, `git push git@heroku.com:<app> master`
 
 # Authors
 
-Andrew Gwozdziewycz <apg@heroku.com> and Cyril David <cyx@heroku.com> and now Lincoln Stoll <lstoll@heroku.com>
+Andrew Gwozdziewycz <apg@heroku.com>, Cyril David <cyx@heroku.com>, Lincoln Stoll <lstoll@heroku.com> and now Peter Lada <peter@formsort.com>
