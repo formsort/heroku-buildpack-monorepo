@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# Ensure wildcards in globs match dotfiles too.
+shopt -s dotglob
+
 indent() {
     sed -u 's/^/       /'
 }
@@ -30,8 +34,8 @@ if [ -f "${PREP_SCRIPT_FILE}" ]; then
 fi
 
 (
-    mv "${BUILD_DIR}" "${STAGE}" &&
-    cp -RL "${STAGE}/$(basename "${BUILD_DIR}")/${APP_BASE}" "${BUILD_DIR}"
+    mv "${BUILD_DIR}"/* "${STAGE}/" &&
+    cp -RL "${STAGE}/${APP_BASE}"/* "${BUILD_DIR}"/
 )
 
 if [ $? -ne 0 ]; then
